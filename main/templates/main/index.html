@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+{% load static %}
+
+{% block content %}
+<div class="row">
+    {% for product in products %}
+        <!-- Карта товара -->
+        <div class="col-lg-4 col-md-6 p-4">
+            <div class="card border-primary rounded custom-shadow">
+
+            <div class="image-wrapper">
+                {% with product.productphoto_set.all|first as first_photo %}
+                {% if first_photo %}
+                <img src="{{first_photo.photo.url}}" class="card-img-top" alt="{{product.title}}">
+                {% else %}
+                <img src="{% static "deps/images/Not found image.png" %}" class="card-img-top" alt="...">
+                {% endif %}
+                {% endwith %}
+            </div>
+                    
+                <div class="card-body">
+                    <a href="{% url "catalog:detail" product.slug %}">
+                        <p class="card-title">{{product.title}}</p>
+                    </a>
+                    <p class="card-text text-truncate">{{product.description}}</p>
+                    <p class="product_id">id: {{product.id}}</p>
+                    <div class="d-flex justify-content-between">
+
+                        {% if product.skid %}
+                            <p><s>{{product.price}}</s> $</p>
+                            <p><strong>{{product.sell_price}} $</strong></p>
+                            <span class="badge bg-warning text-dark">Скидка {{product.skid}} %</span>
+                        {% else %}
+                            <p><strong>{{product.price}}</strong></p>
+                        {% endif %}
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+    {% include "main/nav.html" with page=products %}
+</div>
+{% endblock %}
+

@@ -1,0 +1,48 @@
+
+{% load static %}
+
+
+    <link rel="stylesheet" href="{% static "css/index_.css" %}">
+    <div class="container">
+        <!--Data or Content-->
+        <div class="box-1">
+            <div class="content-holder">
+                <h2>Hello!</h2>
+               
+                <button class="button-1"  onclick="signup()">Sign up</button>
+                <button class="button-2"  onclick="login()">Login</button>
+            </div>
+        </div>
+        <!--Forms-->
+        <div class="box-2">
+            <div class="login-form-container">
+                <form method='POST' >
+                {% csrf_token %}
+                <h1>Login Form</h1>
+                <input type="text" name='username' placeholder="Username" class="input-field">
+                <br><br>
+                <input type="password" name='password' placeholder="Password" class="input-field">
+                <br><br>
+                <button class="login-button" name='login_form' type="submit">Login</button>
+                </form>
+            </div>
+  <!--Create Container for Signup form-->
+        <div class="signup-form-container">
+            <form method='POST'>
+            {% csrf_token %}
+            <h1>Sign Up Form</h1>
+            <input type="text" name='username' placeholder="Username" class="input-field">
+            <br><br>
+            <input type="email" name='email' placeholder="Email" class="input-field">
+            <br><br>
+            <input type="password1" name='password1' placeholder="Password1" class="input-field">
+            <br><br>
+            <input type="password2" name='password2' placeholder="Password2" class="input-field">
+            <br><br>
+            <button class="signup-button" name='sign' type="submit">Sign Up</button>
+            </form>
+        </div>
+        </div>
+<script src='{% static "js/script.js" %}'></script>
+
+

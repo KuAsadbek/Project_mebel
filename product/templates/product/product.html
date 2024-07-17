@@ -1,0 +1,83 @@
+{% extends "layout.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card mb-4 custom-shadow">
+        <div class="row">
+            <!-- Миниатюры -->
+            {% for photo in product.productphoto_set.all  %}
+            <div class="col-md-4">
+              <div class='image-wrapper'>  
+                <img src="{{photo.photo.url}}"
+                class="img-thumbnail" data-bs-toggle="modal" data-bs-target="#imageModal1">
+              </div>
+                  </div>
+                  {% endfor %}
+            <div class="col-md-4 ">
+                <p class="product_id mt-3">id: {{product.display_id}}</p>
+            </div>
+            <!-- Увеличить изображение в модальном окне -->
+            <div class="modal fade" id="imageModal1" tabindex="-1"
+                aria-labelledby="imageModal1Label" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="imageModal1Label">{{product.title}}</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Закрыть"></button>
+                        </div>
+                        <div class="modal-body">
+                          {% for photo in product.productphoto_set.all  %}
+                          <img src="{{photo.photo.url}}"
+                          class="img-fluid" alt="Изображение 1">
+                          {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Описание товара -->
+        <div class="card-body">
+            <p class="card-text">Цена: <strong>{{product.sell_price}}</strong></p>
+            <h5 class="card-title">{{product.title}}</h5>
+            <p class="card-text">{{product.description}}</p>
+        </div>
+    </div>
+</div>
+
+{% comment %} <form method="POST">
+    {% csrf_token %}
+    <div class="row d-flex justify-content-center">
+      <div class="col-md-8 col-lg-6">
+        <div class="card shadow-0 border" style="background-color: #f0f2f5;">
+          <div class="card-body p-4">
+            <div data-mdb-input-init class="form-outline mb-4">
+              <input type="text" id="addANote" name='comment' class="form-control" placeholder="Type comment..." />
+              <input type="submit" value="yuborish">
+            </div>
+            {% for pd in posts %}
+            <div class="card mb-4">
+              <div class="card-body">
+                <p>Comment : {{pd.comment}}</p>
+                <div class="d-flex justify-content-between">
+                  <div class="d-flex flex-row align-items-center">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSFX3aa2te0IyQXOUIJ-x3ZmtnmoF97inkYKw&s" alt="avatar" width="25"
+                    height="25"/>
+                    <p class="small mb-0 ms-2">User : {{pd.username}}</p>
+                  </div>
+                  <div class="d-flex flex-row align-items-center">
+                    <p class="small text-muted mb-0">Upvote?</p> 
+                    <i class="far fa-thumbs-up mx-2 fa-xs text-body" style="margin-top: -0.16rem;"></i>
+                    <p class="small text-muted mb-0">3</p> 
+                  </div>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </form> {% endcomment %}
+{% endblock %}
